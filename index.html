@@ -10,14 +10,16 @@
   <body>
     <div class="grid"></div>
     <form class="book-form" id="formBook">
+      <label for="formCoverURL">Cover URL</label>
+      <input type="text" id="formCoverURL" />
       <label for="book-name">Name: </label>
-      <input type="text" placeholder="name" name="book-name" id="formBookName" />
+      <input type="text" placeholder="name" name="book-name" id="formName" />
       <label for="book-author">Author: </label>
-      <input type="text" placeholder="author" name="book-author" />
+      <input type="text" placeholder="author" name="book-author" id="formAuthor" />
       <label for="book-pages">No. of Pages: </label>
-      <input type="number" value="0" name="book-pages" />
+      <input type="number" value="0" name="book-pages" id="formNumOfPages" />
       <label for="book-read">Completed: </label>
-      <input type="checkbox" name="book-read" />
+      <input type="checkbox" name="book-read" id="formHasRead" />
       <button type="submit" form="formBook">Add Book</button>
     </form>
     <script src="script.js"></script>

@@ -5,8 +5,8 @@ const grid = document.querySelector('.grid');
 const formBook = document.querySelector('#formBook');
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
-  const formBookName = document.querySelector('#formBookName');
-  console.log(formBookName.value);
+  addBookToLibrary(getNewBook());
+  displayLibrary();
 });
 
 // Constructor function for book objects
@@ -40,7 +40,21 @@ function displayLibrary() {
   });
 }
 
-function addNewBook() {}
+function getNewBook() {
+  const formCoverUrl = document.querySelector('#formCoverURL');
+  const formName = document.querySelector('#formName');
+  const formAuthor = document.querySelector('#formAuthor');
+  const formNumOfPages = document.querySelector('#formNumOfPages');
+  const formHasRead = document.querySelector('#formHasRead');
+  const book = new Book(
+    formCoverUrl.value,
+    formName.value,
+    formAuthor.value,
+    formNumOfPages.value,
+    formHasRead.value
+  );
+  return book;
+}
 
 const theLightningThief = new Book(
   'https://rickriordan.com/content/uploads/2016/03/the-lightning-thief-299x416.png',
@@ -60,4 +74,4 @@ const theSeaOfMonsters = new Book(
 
 addBookToLibrary(theLightningThief);
 addBookToLibrary(theSeaOfMonsters);
-displayLibrary();
+// displayLibrary();
