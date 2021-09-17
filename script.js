@@ -25,18 +25,36 @@ function addBookToLibrary(book) {
 function displayLibrary() {
   // Iterate through myLibrary array and display each book's cover
   myLibrary.forEach((book) => {
-    const displayBook = document.createElement('div');
-    displayBook.classList.add('book');
+    const gridBook = document.createElement('div');
+    gridBook.classList.add('book');
 
     const bookCover = document.createElement('img');
+    bookCover.setAttribute('class', 'book_cover');
     bookCover.src = book.cover;
 
     const bookName = document.createElement('h2');
+    bookName.setAttribute('class', 'book__name');
     bookName.textContent = book.name;
 
-    displayBook.appendChild(bookCover);
-    displayBook.appendChild(bookName);
-    grid.appendChild(displayBook);
+    gridBook.appendChild(bookCover);
+    gridBook.appendChild(bookName);
+
+    // Check if any of the books' name in the grid matches with any of the books in myLibrary array
+    const gridBookNames = grid.querySelectorAll('.book__name');
+    if (gridBookNames.length) {
+      console.log('bookNames does exist');
+
+      const gridBookNamesArray = [...gridBookNames];
+      gridBookNamesArray.filter((name) => name.textContent === book.name);
+      console.log(gridBookNamesArray);
+      gridBookNamesArray.forEach((name) => {
+        console.table(book.name);
+        if (book.name !== name.textContent) grid.appendChild(gridBook);
+      });
+    } else {
+      console.log(`bookNames node length is ${gridBookNames.length}`);
+      grid.appendChild(gridBook);
+    }
   });
 }
 
@@ -51,27 +69,27 @@ function getNewBook() {
     formName.value,
     formAuthor.value,
     formNumOfPages.value,
-    formHasRead.value
+    formHasRead.value,
   );
   return book;
 }
 
 const theLightningThief = new Book(
-  'https://rickriordan.com/content/uploads/2016/03/the-lightning-thief-299x416.png',
+  '/images/the-lightning-thief.png',
   'The Lightning Thief',
   'Rick Riordan',
   '300 pages',
-  'Finished'
+  'Finished',
 );
 
 const theSeaOfMonsters = new Book(
-  'https://rickriordan.com/content/uploads/2016/03/the-sea-of-monsters-3D-299x416.png',
+  '/images/the-sea-of-monsters.png',
   'The Sea of Monsters',
   'Rick Riordan',
   '300 pages',
-  'Finished'
+  'Finished',
 );
 
 addBookToLibrary(theLightningThief);
 addBookToLibrary(theSeaOfMonsters);
-// displayLibrary();
+displayLibrary();
