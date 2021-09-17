@@ -1,6 +1,7 @@
 // Store all book objects
 const myLibrary = [];
 const grid = document.querySelector('.grid');
+let bookCount = 0;
 
 const formBook = document.querySelector('#formBook');
 formBook.addEventListener('submit', (e) => {
@@ -11,6 +12,8 @@ formBook.addEventListener('submit', (e) => {
 
 // Constructor function for book objects
 function Book(cover, name, author, numOfPages, hasRead) {
+  bookCount += 1;
+  this.id = bookCount;
   this.cover = cover;
   this.name = name;
   this.author = author;
@@ -26,6 +29,10 @@ function displayBook(book) {
   const gridBook = document.createElement('div');
   gridBook.classList.add('book');
 
+  const bookId = document.createElement('p');
+  bookId.classList.add('book__id');
+  bookId.textContent = book.id;
+
   const bookCover = document.createElement('img');
   bookCover.setAttribute('class', 'book_cover');
   bookCover.src = book.cover;
@@ -34,12 +41,13 @@ function displayBook(book) {
   bookName.setAttribute('class', 'book__name');
   bookName.textContent = book.name;
 
+  gridBook.appendChild(bookId);
   gridBook.appendChild(bookCover);
   gridBook.appendChild(bookName);
 
   // Check if any of the books' name in the grid matches with any of the books in myLibrary array
-  const gridBookNames = grid.querySelectorAll('.book__name');
-  const gridBookNamesArray = [...gridBookNames];
+  const gridBookIds = grid.querySelectorAll('.book__id');
+  const gridBookIdsArray = [...gridBookIds];
 
   // if (gridBookNames.length) {
   //   for (let i = 0; i < gridBookNames.length; i += 1) {
@@ -50,7 +58,9 @@ function displayBook(book) {
   //   grid.appendChild(gridBook);
   // }
 
-  const doesBookExist = gridBookNamesArray.some((name) => name.textContent === book.name);
+  const doesBookExist = gridBookIdsArray.some(
+    (id) => parseInt(id.textContent, 10) === book.id,
+  );
   // Create an if statement that checks if atleast one element in the array already has the same book name
   if (!doesBookExist) grid.appendChild(gridBook);
 }
