@@ -22,42 +22,46 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-function displayLibrary() {
-  // Iterate through myLibrary array and display each book's cover
-  myLibrary.forEach((book) => {
-    const gridBook = document.createElement('div');
-    gridBook.classList.add('book');
+function displayBook(book) {
+  const gridBook = document.createElement('div');
+  gridBook.classList.add('book');
 
-    const bookCover = document.createElement('img');
-    bookCover.setAttribute('class', 'book_cover');
-    bookCover.src = book.cover;
+  const bookCover = document.createElement('img');
+  bookCover.setAttribute('class', 'book_cover');
+  bookCover.src = book.cover;
 
-    const bookName = document.createElement('h2');
-    bookName.setAttribute('class', 'book__name');
-    bookName.textContent = book.name;
+  const bookName = document.createElement('h2');
+  bookName.setAttribute('class', 'book__name');
+  bookName.textContent = book.name;
 
-    gridBook.appendChild(bookCover);
-    gridBook.appendChild(bookName);
+  gridBook.appendChild(bookCover);
+  gridBook.appendChild(bookName);
 
-    // Check if any of the books' name in the grid matches with any of the books in myLibrary array
-    const gridBookNames = grid.querySelectorAll('.book__name');
-    if (gridBookNames.length) {
-      console.log('bookNames does exist');
+  // Check if any of the books' name in the grid matches with any of the books in myLibrary array
+  const gridBookNames = grid.querySelectorAll('.book__name');
+  const gridBookNamesArray = [...gridBookNames];
 
-      const gridBookNamesArray = [...gridBookNames];
-      gridBookNamesArray.filter((name) => name.textContent === book.name);
-      console.log(gridBookNamesArray);
-      gridBookNamesArray.forEach((name) => {
-        console.table(book.name);
-        if (book.name !== name.textContent) grid.appendChild(gridBook);
-      });
-    } else {
-      console.log(`bookNames node length is ${gridBookNames.length}`);
-      grid.appendChild(gridBook);
-    }
-  });
+  // if (gridBookNames.length) {
+  //   for (let i = 0; i < gridBookNames.length; i += 1) {
+  //     if (book.name !== gridBookNamesArray[i].textContent) grid.appendChild(gridBook);
+  //     console.log(gridBookNamesArray[i]);
+  //   }
+  // } else {
+  //   grid.appendChild(gridBook);
+  // }
+
+  const doesBookExist = gridBookNamesArray.some((name) => name.textContent === book.name);
+  // Create an if statement that checks if atleast one element in the array already has the same book name
+  if (!doesBookExist) grid.appendChild(gridBook);
 }
 
+// function doesBookExist(book) {}
+
+function displayLibrary() {
+  myLibrary.forEach((book) => displayBook(book));
+}
+
+// Takes new book from form and store as an object
 function getNewBook() {
   const formCoverUrl = document.querySelector('#formCoverURL');
   const formName = document.querySelector('#formName');
