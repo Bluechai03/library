@@ -10,16 +10,34 @@ formBook.addEventListener('submit', (e) => {
   displayLibrary();
 });
 
+const btnRecordNewBook = document.querySelector('#btnRecordNewBook');
+btnRecordNewBook.addEventListener('click', () => {
+  formBook.classList.toggle('book-form--hidden');
+});
+
 // Constructor function for book objects
-function Book(cover, name, author, numOfPages, hasRead) {
+function Book(cover, name, author, numOfPages, hasBeenRead) {
   bookCount += 1;
   this.id = bookCount;
   this.cover = cover;
   this.name = name;
   this.author = author;
   this.numOfPages = numOfPages;
-  this.hasRead = hasRead; // this has to be a function
+  this.hasBeenRead = hasBeenRead; // this has to be a function
 }
+
+Book.prototype.checkHasBeenRead = (e, book) => {
+  console.log(e.target.checked);
+  if (e.target.checked) {
+    book.hasBeenRead = true; // eslint-disable-line no-param-reassign
+  } else {
+    book.hasBeenRead = false; // eslint-disable-line no-param-reassign
+  }
+  console.log(book);
+};
+
+// Create a function that checks if book has been read
+
 // Add passed book object to library array
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -34,29 +52,36 @@ function displayBook(book) {
   bookId.textContent = book.id;
 
   const bookCover = document.createElement('img');
-  bookCover.setAttribute('class', 'book_cover');
+  bookCover.setAttribute('class', 'book__cover');
   bookCover.src = book.cover;
 
   const bookName = document.createElement('h2');
   bookName.setAttribute('class', 'book__name');
   bookName.textContent = book.name;
 
+  const bookRemove = document.createElement('button');
+  bookRemove.setAttribute('class', 'btn book__remove');
+  bookRemove.textContent = 'Delete Book';
+
+  const bookHasBeenRead = document.createElement('input');
+  bookHasBeenRead.setAttribute('type', 'checkbox');
+  bookHasBeenRead.setAttribute('class', 'book__has-been-read');
+  bookHasBeenRead.setAttribute('id', 'bookHasBeenRead');
+
+  // Try to turn this into a constructor function
+  bookHasBeenRead.addEventListener('click', (e) => {
+    book.checkHasBeenRead(e, book);
+  });
+
   gridBook.appendChild(bookId);
   gridBook.appendChild(bookCover);
   gridBook.appendChild(bookName);
+  gridBook.appendChild(bookRemove);
+  gridBook.appendChild(bookHasBeenRead);
 
   // Check if any of the books' name in the grid matches with any of the books in myLibrary array
   const gridBookIds = grid.querySelectorAll('.book__id');
   const gridBookIdsArray = [...gridBookIds];
-
-  // if (gridBookNames.length) {
-  //   for (let i = 0; i < gridBookNames.length; i += 1) {
-  //     if (book.name !== gridBookNamesArray[i].textContent) grid.appendChild(gridBook);
-  //     console.log(gridBookNamesArray[i]);
-  //   }
-  // } else {
-  //   grid.appendChild(gridBook);
-  // }
 
   const doesBookExist = gridBookIdsArray.some(
     (id) => parseInt(id.textContent, 10) === book.id,
@@ -64,8 +89,6 @@ function displayBook(book) {
   // Create an if statement that checks if atleast one element in the array already has the same book name
   if (!doesBookExist) grid.appendChild(gridBook);
 }
-
-// function doesBookExist(book) {}
 
 function displayLibrary() {
   myLibrary.forEach((book) => displayBook(book));

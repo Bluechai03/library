@@ -22,12 +22,27 @@ p {
   margin: 0;
 }
 
+.btn {
+  text-decoration: none;
+}
+
+.btn:hover {
+  color: black;
+}
+
 .grid {
   display: grid;
 }
 
 .book-form {
+  position: absolute;
+  right: 0;
+  top: 0;
   display: flex;
   flex-direction: column;
+}
+
+.book-form--hidden {
+  display: none;
 }
 /*# sourceMappingURL=styles.css.map */
