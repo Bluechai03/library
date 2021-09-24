@@ -1,13 +1,13 @@
 // Store all book objects
 const myLibrary = [];
 const grid = document.querySelector('.grid');
-let bookCount = 0;
+let bookCountId = 0;
 
 const formBook = document.querySelector('#formBook');
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
   addBookToLibrary(getNewBook());
-  displayLibrary();
+  displayLibrary(myLibrary);
 });
 
 const btnRecordNewBook = document.querySelector('#btnRecordNewBook');
@@ -17,14 +17,21 @@ btnRecordNewBook.addEventListener('click', () => {
 
 // Constructor function for book objects
 function Book(cover, name, author, numOfPages, hasBeenRead) {
-  bookCount += 1;
-  this.id = bookCount;
+  bookCountId += 1;
+  this.id = bookCountId;
   this.cover = cover;
   this.name = name;
   this.author = author;
   this.numOfPages = numOfPages;
   this.hasBeenRead = hasBeenRead; // this has to be a function
 }
+
+Book.prototype.delete = (e, book) => {
+  console.log(myLibrary.indexOf(book));
+  myLibrary.splice(myLibrary.indexOf(book), 1);
+  displayLibrary(myLibrary);
+  console.log(myLibrary);
+};
 
 Book.prototype.checkHasBeenRead = (e, book) => {
   console.log(e.target.checked);
@@ -63,6 +70,10 @@ function displayBook(book) {
   bookRemove.setAttribute('class', 'btn book__remove');
   bookRemove.textContent = 'Delete Book';
 
+  bookRemove.addEventListener('click', (e) => {
+    book.delete(e, book);
+  });
+
   const bookHasBeenRead = document.createElement('input');
   bookHasBeenRead.setAttribute('type', 'checkbox');
   bookHasBeenRead.setAttribute('class', 'book__has-been-read');
@@ -86,12 +97,17 @@ function displayBook(book) {
   const doesBookExist = gridBookIdsArray.some(
     (id) => parseInt(id.textContent, 10) === book.id,
   );
-  // Create an if statement that checks if atleast one element in the array already has the same book name
+
+  /*
+  Create an if statement that checks if atleast one element
+  in the array already has the same book name
+  */
   if (!doesBookExist) grid.appendChild(gridBook);
 }
 
-function displayLibrary() {
-  myLibrary.forEach((book) => displayBook(book));
+function displayLibrary(library) {
+  grid.textContent = '';
+  library.forEach((book) => displayBook(book));
 }
 
 // Takes new book from form and store as an object
@@ -129,4 +145,4 @@ const theSeaOfMonsters = new Book(
 
 addBookToLibrary(theLightningThief);
 addBookToLibrary(theSeaOfMonsters);
-displayLibrary();
+displayLibrary(myLibrary);
