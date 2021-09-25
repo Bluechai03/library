@@ -16,34 +16,29 @@ btnRecordNewBook.addEventListener('click', () => {
 });
 
 // Constructor function for book objects
-function Book(cover, name, author, numOfPages, hasBeenRead) {
-  bookCountId += 1;
+function Book(
+  cover = 'https://bookstoreromanceday.org/wp-content/uploads/2020/08/book-cover-placeholder.png',
+  name,
+  author,
+  numOfPages,
+  hasBeenRead,
+) {
   this.id = bookCountId;
   this.cover = cover;
   this.name = name;
   this.author = author;
   this.numOfPages = numOfPages;
   this.hasBeenRead = hasBeenRead; // this has to be a function
+  bookCountId += 1;
 }
 
 Book.prototype.delete = (e, book) => {
   console.log(myLibrary.indexOf(book));
   myLibrary.splice(myLibrary.indexOf(book), 1);
   displayLibrary(myLibrary);
-  console.log(myLibrary);
 };
 
-Book.prototype.checkHasBeenRead = (e, book) => {
-  console.log(e.target.checked);
-  if (e.target.checked) {
-    book.hasBeenRead = true; // eslint-disable-line no-param-reassign
-  } else {
-    book.hasBeenRead = false; // eslint-disable-line no-param-reassign
-  }
-  console.log(book);
-};
-
-// Create a function that checks if book has been read
+Book.prototype.changeReadStatus = (book) => !book.hasBeenRead;
 
 // Add passed book object to library array
 function addBookToLibrary(book) {
@@ -74,26 +69,28 @@ function displayBook(book) {
     book.delete(e, book);
   });
 
-  const bookHasBeenRead = document.createElement('input');
-  bookHasBeenRead.setAttribute('type', 'checkbox');
-  bookHasBeenRead.setAttribute('class', 'book__has-been-read');
-  bookHasBeenRead.setAttribute('id', 'bookHasBeenRead');
+  const btnBookHasBeenRead = document.createElement('button');
+  btnBookHasBeenRead.setAttribute('class', 'book__has-been-read');
+  btnBookHasBeenRead.setAttribute('id', 'bookHasBeenRead');
+  btnBookHasBeenRead.textContent = book.hasBeenRead ? 'Not Finished' : 'Not Finished';
+  // Add data attribute to store values if book has been read
+  btnBookHasBeenRead.setAttribute('data-has-been-read', book.hasBeenRead);
 
-  // Try to turn this into a constructor function
-  bookHasBeenRead.addEventListener('click', (e) => {
-    book.checkHasBeenRead(e, book);
+  btnBookHasBeenRead.addEventListener('click', (e) => {
+    book.hasBeenRead = book.changeReadStatus(book); // eslint-disable-line no-param-reassign
+    console.log(book.hasBeenRead);
+    e.target.textContent = book.hasBeenRead ? 'Finished' : 'Not Finished';
   });
 
   gridBook.appendChild(bookId);
   gridBook.appendChild(bookCover);
   gridBook.appendChild(bookName);
   gridBook.appendChild(bookRemove);
-  gridBook.appendChild(bookHasBeenRead);
+  gridBook.appendChild(btnBookHasBeenRead);
 
-  // Check if any of the books' name in the grid matches with any of the books in myLibrary array
   const gridBookIds = grid.querySelectorAll('.book__id');
   const gridBookIdsArray = [...gridBookIds];
-
+  // Check if any of the books' name in the grid matches with any of the books in myLibrary array
   const doesBookExist = gridBookIdsArray.some(
     (id) => parseInt(id.textContent, 10) === book.id,
   );
@@ -122,7 +119,7 @@ function getNewBook() {
     formName.value,
     formAuthor.value,
     formNumOfPages.value,
-    formHasRead.value,
+    formHasRead.checked,
   );
   return book;
 }
@@ -132,7 +129,7 @@ const theLightningThief = new Book(
   'The Lightning Thief',
   'Rick Riordan',
   '300 pages',
-  'Finished',
+  true,
 );
 
 const theSeaOfMonsters = new Book(
@@ -140,7 +137,7 @@ const theSeaOfMonsters = new Book(
   'The Sea of Monsters',
   'Rick Riordan',
   '300 pages',
-  'Finished',
+  false,
 );
 
 addBookToLibrary(theLightningThief);
