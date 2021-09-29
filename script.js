@@ -10,6 +10,8 @@ formBook.addEventListener('submit', (e) => {
   if (formIsValid) {
     addBookToLibrary(getNewBook()); // eslint-disable-line no-use-before-define
     displayLibrary(myLibrary); // eslint-disable-line no-use-before-define
+
+    formBook.reset();
   }
 });
 
@@ -63,22 +65,26 @@ function validateForm() {
   }
 
   const formName = document.querySelector('#formName');
-  if (typeof formName.value !== 'string') {
+  const formNameLabel = document.querySelector('#formNameLabel');
+  if (!formName.value) {
     console.log('Name must not be empty and be string');
     errors.push(formName);
-  }
+    formNameLabel.setAttribute('data-error', 'Name field must not be empty');
+  } else formNameLabel.setAttribute('data-error', '');
 
   const formAuthor = document.querySelector('#formAuthor');
-  if (typeof formAuthor.value !== 'string') {
-    console.log('Author must not be empty and be string');
-    errors.push(formName);
-  }
+  const formAuthorLabel = document.querySelector('#formAuthorLabel');
+  if (!formAuthor.value) {
+    errors.push(formAuthor);
+    formAuthorLabel.setAttribute('data-error', 'Author field must not be empty');
+  } else formAuthorLabel.setAttribute('data-error', '');
 
   const formNumOfPages = document.querySelector('#formNumOfPages');
+  const formNumOfPagesLabel = document.querySelector('#formNumOfPagesLabel');
   if (formNumOfPages.value <= 0) {
-    console.log('Number of pages should be above 0');
     errors.push(formNumOfPages);
-  }
+    formNumOfPagesLabel.setAttribute('data-error', 'Number of pages should be above 0');
+  } else formNumOfPagesLabel.setAttribute('data-error', '');
 
   if (errors.length) {
     console.log('There are errors in the form');

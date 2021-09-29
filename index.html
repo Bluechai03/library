@@ -13,15 +13,37 @@
     <button class="btn" id="btnRecordNewBook">Record new book</button>
     <form class="card book-form book-form--hidden" id="formBook">
       <label for="formCoverURL">Cover URL</label>
-      <input type="text" id="formCoverURL" />
-      <label for="book-name">Name: </label>
-      <input type="text" placeholder="name" name="book-name" id="formName" />
-      <label for="book-author">Author: </label>
-      <input type="text" placeholder="author" name="book-author" id="formAuthor" />
-      <label for="book-pages">No. of Pages: </label>
-      <input type="number" value="0" name="book-pages" id="formNumOfPages" />
-      <label for="book-read">Completed: </label>
-      <input type="checkbox" name="book-read" id="formHasRead" />
+      <input type="text" class="book-form__input" id="formCoverURL" />
+      <label for="book-name" class="book-form__label" id="formNameLabel">Name: </label>
+      <input
+        type="text"
+        placeholder="name"
+        name="book-name"
+        class="book-form__input"
+        id="formName"
+      />
+      <label for="book-author" class="book-form__label" id="formAuthorLabel"
+        >Author:
+      </label>
+      <input
+        type="text"
+        placeholder="author"
+        name="book-author"
+        class="book-form__input"
+        id="formAuthor"
+      />
+      <label for="book-pages" class="book-form__label" id="formNumOfPagesLabel"
+        >No. of Pages:
+      </label>
+      <input
+        type="number"
+        value="0"
+        name="book-pages"
+        class="book-form__input"
+        id="formNumOfPages"
+      />
+      <label for="book-read" class="book-form__label">Completed: </label>
+      <input type="checkbox" name="book-read" class="book-form__input" id="formHasRead" />
       <button type="submit" form="formBook" class="btn">Add Book</button>
     </form>
     <script src="script.js"></script>
