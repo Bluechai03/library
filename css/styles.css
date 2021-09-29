@@ -54,6 +54,8 @@ p {
   display: flex;
   flex-direction: column;
   min-width: 30rem;
+  background: palegoldenrod;
+  padding: 2em;
 }
 
 .book-form--hidden {
