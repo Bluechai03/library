@@ -11,7 +11,7 @@
     <div class="grid"></div>
     <!-- <a href="#" class="btn" id="btnRecordNewBook">Record new book</a> -->
     <button class="btn" id="btnRecordNewBook">Record new book</button>
-    <form class="book-form book-form--hidden" id="formBook">
+    <form class="card book-form book-form--hidden" id="formBook">
       <label for="formCoverURL">Cover URL</label>
       <input type="text" id="formCoverURL" />
       <label for="book-name">Name: </label>
@@ -22,9 +22,8 @@
       <input type="number" value="0" name="book-pages" id="formNumOfPages" />
       <label for="book-read">Completed: </label>
       <input type="checkbox" name="book-read" id="formHasRead" />
-      <button type="submit" form="formBook">Add Book</button>
+      <button type="submit" form="formBook" class="btn">Add Book</button>
     </form>
-
     <script src="script.js"></script>
   </body>
 </html>

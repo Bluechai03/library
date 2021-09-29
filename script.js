@@ -6,8 +6,11 @@ let bookCountId = 0;
 const formBook = document.querySelector('#formBook');
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
-  addBookToLibrary(getNewBook());
-  displayLibrary(myLibrary);
+  const formIsValid = validateForm(); // eslint-disable-line no-use-before-define
+  if (formIsValid) {
+    addBookToLibrary(getNewBook()); // eslint-disable-line no-use-before-define
+    displayLibrary(myLibrary); // eslint-disable-line no-use-before-define
+  }
 });
 
 const btnRecordNewBook = document.querySelector('#btnRecordNewBook');
@@ -32,13 +35,57 @@ function Book(
   bookCountId += 1;
 }
 
-Book.prototype.delete = (e, book) => {
+Book.prototype.delete = (book) => {
   console.log(myLibrary.indexOf(book));
   myLibrary.splice(myLibrary.indexOf(book), 1);
-  displayLibrary(myLibrary);
+  displayLibrary(myLibrary); // eslint-disable-line no-use-before-define
 };
 
 Book.prototype.changeReadStatus = (book) => !book.hasBeenRead;
+
+Book.prototype.updateReadStatusButton = (book, btn) => {
+  if (book.hasBeenRead) {
+    btn.textContent = 'Finished';
+    btn.style.background = 'palegreen';
+  } else {
+    btn.textContent = 'Not Finished';
+    btn.style.background = 'tomato';
+  }
+};
+
+function validateForm() {
+  const errors = [];
+  // check if all details is valid and return true if it does
+  const formCoverUrl = document.querySelector('#formCoverURL');
+  if (!formCoverUrl.value) {
+    // Add a placeholder cover
+    formCoverUrl.value = '/images/placeholder-cover.png';
+  }
+
+  const formName = document.querySelector('#formName');
+  if (typeof formName.value !== 'string') {
+    console.log('Name must not be empty and be string');
+    errors.push(formName);
+  }
+
+  const formAuthor = document.querySelector('#formAuthor');
+  if (typeof formAuthor.value !== 'string') {
+    console.log('Author must not be empty and be string');
+    errors.push(formName);
+  }
+
+  const formNumOfPages = document.querySelector('#formNumOfPages');
+  if (formNumOfPages.value <= 0) {
+    console.log('Number of pages should be above 0');
+    errors.push(formNumOfPages);
+  }
+
+  if (errors.length) {
+    console.log('There are errors in the form');
+    return false;
+  }
+  return true;
+}
 
 // Add passed book object to library array
 function addBookToLibrary(book) {
@@ -70,16 +117,17 @@ function displayBook(book) {
   });
 
   const btnBookHasBeenRead = document.createElement('button');
-  btnBookHasBeenRead.setAttribute('class', 'book__has-been-read');
+  btnBookHasBeenRead.setAttribute('class', 'btn book__has-been-read');
   btnBookHasBeenRead.setAttribute('id', 'bookHasBeenRead');
-  btnBookHasBeenRead.textContent = book.hasBeenRead ? 'Not Finished' : 'Not Finished';
+  book.updateReadStatusButton(book, btnBookHasBeenRead);
+  btnBookHasBeenRead.textContent = book.hasBeenRead ? 'Finished' : 'Not Finished';
   // Add data attribute to store values if book has been read
   btnBookHasBeenRead.setAttribute('data-has-been-read', book.hasBeenRead);
 
-  btnBookHasBeenRead.addEventListener('click', (e) => {
+  btnBookHasBeenRead.addEventListener('click', () => {
     book.hasBeenRead = book.changeReadStatus(book); // eslint-disable-line no-param-reassign
     console.log(book.hasBeenRead);
-    e.target.textContent = book.hasBeenRead ? 'Finished' : 'Not Finished';
+    book.updateReadStatusButton(book, btnBookHasBeenRead);
   });
 
   gridBook.appendChild(bookId);
@@ -114,6 +162,7 @@ function getNewBook() {
   const formAuthor = document.querySelector('#formAuthor');
   const formNumOfPages = document.querySelector('#formNumOfPages');
   const formHasRead = document.querySelector('#formHasRead');
+
   const book = new Book(
     formCoverUrl.value,
     formName.value,
