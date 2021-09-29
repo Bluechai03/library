@@ -112,8 +112,8 @@ function displayBook(book) {
   bookRemove.setAttribute('class', 'btn book__remove');
   bookRemove.textContent = 'Delete Book';
 
-  bookRemove.addEventListener('click', (e) => {
-    book.delete(e, book);
+  bookRemove.addEventListener('click', () => {
+    book.delete(book);
   });
 
   const btnBookHasBeenRead = document.createElement('button');
