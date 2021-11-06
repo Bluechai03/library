@@ -5,10 +5,13 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
   min-height: 100vh;
+  width: 90%;
+  max-width: 1280px;
 }
 
 img {
@@ -23,6 +26,10 @@ p {
   margin: 0;
 }
 
+header {
+  text-align: center;
+}
+
 .btn {
   padding: 0.75em 1em;
   border: none;
@@ -34,23 +41,58 @@ p {
   filter: brightness(120%);
 }
 
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .grid {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  text-align: center;
+  margin: 1rem auto;
 }
 
 .book {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  position: relative;
   background-color: #cfcfcf;
-  margin: 1rem;
   padding: 1rem;
+  margin: 0 auto;
   max-width: 250px;
+  border-radius: 7px;
+  text-align: left;
+}
+
+.book__name {
+  line-height: 1;
+}
+
+.book__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.book__buttons button {
+  font-size: 1.5rem;
+  background: none;
+  padding: 0;
+}
+
+.book__buttons button:hover {
+  color: #333;
+  transform: scale(1.1);
 }
 
 .book-form {
   position: absolute;
-  right: 0;
-  top: 0;
+  inset: 25%;
   display: flex;
   flex-direction: column;
   min-width: 30rem;

@@ -6,6 +6,10 @@ let bookCountId = 0;
 const formBook = document.querySelector('#formBook');
 formBook.addEventListener('submit', (e) => {
   e.preventDefault();
+});
+
+const btnFormSubmit = document.querySelector('#btnFormSubmit');
+btnFormSubmit.addEventListener('click', () => {
   const formIsValid = validateForm(); // eslint-disable-line no-use-before-define
   if (formIsValid) {
     addBookToLibrary(getNewBook()); // eslint-disable-line no-use-before-define
@@ -13,6 +17,11 @@ formBook.addEventListener('submit', (e) => {
 
     formBook.reset();
   }
+});
+
+const btnFormCancel = document.querySelector('#btnFormCancel');
+btnFormCancel.addEventListener('click', () => {
+  formBook.classList.toggle('book-form--hidden');
 });
 
 const btnRecordNewBook = document.querySelector('#btnRecordNewBook');
@@ -47,11 +56,9 @@ Book.prototype.changeReadStatus = (book) => !book.hasBeenRead;
 
 Book.prototype.updateReadStatusButton = (book, btn) => {
   if (book.hasBeenRead) {
-    btn.textContent = 'Finished';
-    btn.style.background = 'palegreen';
+    btn.innerHTML = '<i class="far fa-check-square"></i>';
   } else {
-    btn.textContent = 'Not Finished';
-    btn.style.background = 'tomato';
+    btn.innerHTML = '<i class="far fa-square"></i>';
   }
 };
 
@@ -106,17 +113,21 @@ function displayBook(book) {
   bookId.classList.add('book__id');
   bookId.textContent = book.id;
 
-  const bookCover = document.createElement('img');
-  bookCover.setAttribute('class', 'book__cover');
-  bookCover.src = book.cover;
-
   const bookName = document.createElement('h2');
   bookName.setAttribute('class', 'book__name');
   bookName.textContent = book.name;
 
+  const bookAuthor = document.createElement('p');
+  bookAuthor.setAttribute('class', 'book__author');
+  bookAuthor.textContent = book.author;
+
+  const bookCover = document.createElement('img');
+  bookCover.setAttribute('class', 'book__cover');
+  bookCover.src = book.cover;
+
   const bookRemove = document.createElement('button');
   bookRemove.setAttribute('class', 'btn book__remove');
-  bookRemove.textContent = 'Delete Book';
+  bookRemove.innerHTML = '<i class="fas fa-trash"></i>';
 
   bookRemove.addEventListener('click', () => {
     book.delete(book);
@@ -126,7 +137,9 @@ function displayBook(book) {
   btnBookHasBeenRead.setAttribute('class', 'btn book__has-been-read');
   btnBookHasBeenRead.setAttribute('id', 'bookHasBeenRead');
   book.updateReadStatusButton(book, btnBookHasBeenRead);
-  btnBookHasBeenRead.textContent = book.hasBeenRead ? 'Finished' : 'Not Finished';
+  btnBookHasBeenRead.innerHTML = book.hasBeenRead
+    ? '<i class="far fa-check-square"></i>'
+    : '<i class="far fa-square"></i>';
   // Add data attribute to store values if book has been read
   btnBookHasBeenRead.setAttribute('data-has-been-read', book.hasBeenRead);
 
@@ -136,11 +149,17 @@ function displayBook(book) {
     book.updateReadStatusButton(book, btnBookHasBeenRead);
   });
 
-  gridBook.appendChild(bookId);
-  gridBook.appendChild(bookCover);
+  // gridBook.appendChild(bookId);
   gridBook.appendChild(bookName);
-  gridBook.appendChild(bookRemove);
-  gridBook.appendChild(btnBookHasBeenRead);
+  gridBook.appendChild(bookAuthor);
+  gridBook.appendChild(bookCover);
+
+  const bookButtons = document.createElement('div');
+  bookButtons.setAttribute('class', 'book__buttons');
+
+  bookButtons.appendChild(bookRemove);
+  bookButtons.appendChild(btnBookHasBeenRead);
+  gridBook.appendChild(bookButtons);
 
   const gridBookIds = grid.querySelectorAll('.book__id');
   const gridBookIdsArray = [...gridBookIds];

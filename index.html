@@ -5,46 +5,70 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+      integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <div class="grid"></div>
-    <button class="btn" id="btnRecordNewBook">Record new book</button>
-    <form class="card book-form book-form--hidden" id="formBook">
-      <label for="formCoverURL">Cover URL</label>
-      <input type="text" class="book-form__input" id="formCoverURL" />
-      <label for="book-name" class="book-form__label" id="formNameLabel">Name: </label>
-      <input
-        type="text"
-        placeholder="name"
-        name="book-name"
-        class="book-form__input"
-        id="formName"
-      />
-      <label for="book-author" class="book-form__label" id="formAuthorLabel"
-        >Author:
-      </label>
-      <input
-        type="text"
-        placeholder="author"
-        name="book-author"
-        class="book-form__input"
-        id="formAuthor"
-      />
-      <label for="book-pages" class="book-form__label" id="formNumOfPagesLabel"
-        >No. of Pages:
-      </label>
-      <input
-        type="number"
-        value="0"
-        name="book-pages"
-        class="book-form__input"
-        id="formNumOfPages"
-      />
-      <label for="book-read" class="book-form__label">Completed: </label>
-      <input type="checkbox" name="book-read" class="book-form__input" id="formHasRead" />
-      <button type="submit" form="formBook" class="btn">Add Book</button>
-    </form>
+    <header>
+      <h1 class="title">Library</h1>
+      <p class="slogan">Keep track of your books!</p>
+    </header>
+    <main>
+      <div class="row">
+        <h2>Your collection</h2>
+        <button class="btn" id="btnRecordNewBook">Record new book</button>
+      </div>
+      <div class="grid"></div>
+      <form class="card book-form book-form--hidden" id="formBook">
+        <label for="formCoverURL">Cover URL</label>
+        <input type="text" class="book-form__input" id="formCoverURL" />
+        <label for="book-name" class="book-form__label" id="formNameLabel">Name: </label>
+        <input
+          type="text"
+          placeholder="name"
+          name="book-name"
+          class="book-form__input"
+          id="formName"
+        />
+        <label for="book-author" class="book-form__label" id="formAuthorLabel"
+          >Author:
+        </label>
+        <input
+          type="text"
+          placeholder="author"
+          name="book-author"
+          class="book-form__input"
+          id="formAuthor"
+        />
+        <label for="book-pages" class="book-form__label" id="formNumOfPagesLabel"
+          >No. of Pages:
+        </label>
+        <input
+          type="number"
+          value="0"
+          name="book-pages"
+          class="book-form__input"
+          id="formNumOfPages"
+        />
+        <label for="book-read" class="book-form__label">Completed: </label>
+        <input
+          type="checkbox"
+          name="book-read"
+          class="book-form__input"
+          id="formHasRead"
+        />
+        <button class="btn" id="btnFormCancel">Cancel</button>
+        <button type="submit" form="formBook" class="btn" id="btnFormSubmit">
+          Add Book
+        </button>
+      </form>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>

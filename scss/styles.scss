@@ -5,10 +5,13 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
   min-height: 100vh;
+  width: 90%;
+  max-width: 1280px;
 }
 
 img {
@@ -23,6 +26,10 @@ p {
   margin: 0;
 }
 
+header {
+  text-align: center;
+}
+
 .btn {
   padding: 0.75em 1em;
   border: none;
@@ -33,48 +40,82 @@ p {
   }
 }
 
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .grid {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  text-align: center;
+  margin: 1rem auto;
 }
 
 .book {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  position: relative;
   background-color: rgb(207, 207, 207);
-  margin: 1rem;
   padding: 1rem;
+  margin: 0 auto;
   max-width: 250px;
-}
+  border-radius: 7px;
+  text-align: left;
 
-.book {
-  &-form {
-    position: absolute;
-    right: 0;
-    top: 0;
+  &__name {
+    line-height: 1;
+  }
+
+  &__author {
+  }
+
+  &__buttons {
     display: flex;
-    flex-direction: column;
-    min-width: 30rem;
-    background: palegoldenrod;
-    padding: 2em;
-    &--hidden {
-      display: none;
-    }
-
-    &__label {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      &::after {
-        content: attr(data-error);
-        text-align: end;
-        color: red;
+    justify-content: space-between;
+    margin-top: 1rem;
+    button {
+      font-size: 1.5rem;
+      background: none;
+      padding: 0;
+      &:hover {
+        color: #333;
+        transform: scale(1.1);
       }
     }
+  }
+}
 
-    &__input {
-      min-height: 2rem;
-      margin-bottom: 2rem;
+.book-form {
+  position: absolute;
+  inset: 25%;
+  display: flex;
+  flex-direction: column;
+  min-width: 30rem;
+  background: palegoldenrod;
+  padding: 2em;
+  &--hidden {
+    display: none;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    &::after {
+      content: attr(data-error);
+      text-align: end;
+      color: red;
     }
+  }
+
+  &__input {
+    min-height: 2rem;
+    margin-bottom: 2rem;
   }
 }
