@@ -68,7 +68,9 @@ function validateForm() {
   const formCoverUrl = document.querySelector('#formCoverURL');
   if (!formCoverUrl.value) {
     // Add a placeholder cover
-    formCoverUrl.value = '/images/placeholder-cover.png';
+    // formCoverUrl.value = '/images/placeholder-cover.png';
+    formCoverUrl.value =
+      'https://raw.githubusercontent.com/Bluechai03/library/main/images/placeholder-cover.png';
   }
 
   const formName = document.querySelector('#formName');
@@ -206,7 +208,7 @@ function getNewBook() {
 }
 
 const theLightningThief = new Book(
-  '/images/the-lightning-thief.png',
+  'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-lightning-thief.png',
   'The Lightning Thief',
   'Rick Riordan',
   '300 pages',
@@ -214,7 +216,7 @@ const theLightningThief = new Book(
 );
 
 const theSeaOfMonsters = new Book(
-  '/images/the-sea-of-monsters.png',
+  'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-sea-of-monsters.png',
   'The Sea of Monsters',
   'Rick Riordan',
   '300 pages',
