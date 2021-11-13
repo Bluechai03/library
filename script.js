@@ -207,7 +207,7 @@ function getNewBook() {
   return book;
 }
 
-const theLightningThief = new Book(
+const lightningThief = new Book(
   'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-lightning-thief.png',
   'The Lightning Thief',
   'Rick Riordan',
@@ -215,14 +215,41 @@ const theLightningThief = new Book(
   true,
 );
 
-const theSeaOfMonsters = new Book(
+const seaOfMonsters = new Book(
   'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-sea-of-monsters.png',
   'The Sea of Monsters',
   'Rick Riordan',
   '300 pages',
+  true,
+);
+
+const titansCurse = new Book(
+  'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-titans-curse.png',
+  "The Titan's Curse",
+  'Rick Riordan',
+  '200 pages',
+  true,
+);
+
+const battleOfTheLabrynth = new Book(
+  'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-battle-of-the-labyrinth.png',
+  'The Battle of the Labrynth',
+  'Rick Riordan',
+  '200 pages',
   false,
 );
 
-addBookToLibrary(theLightningThief);
-addBookToLibrary(theSeaOfMonsters);
+const lastOlympian = new Book(
+  'https://raw.githubusercontent.com/Bluechai03/library/main/images/the-last-olympian.png',
+  'The Last Olympian',
+  'Rick Riordan',
+  '200 pages',
+  false,
+);
+
+addBookToLibrary(lightningThief);
+addBookToLibrary(seaOfMonsters);
+addBookToLibrary(titansCurse);
+addBookToLibrary(battleOfTheLabrynth);
+addBookToLibrary(lastOlympian);
 displayLibrary(myLibrary);
