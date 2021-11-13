@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
@@ -26,26 +32,14 @@
       </div>
       <div class="grid"></div>
       <form class="card book-form book-form--hidden" id="formBook">
-        <label for="formCoverURL">Cover URL</label>
+        <label for="formCoverURL" class="book-form__label">Cover URL: </label>
         <input type="text" class="book-form__input" id="formCoverURL" />
         <label for="book-name" class="book-form__label" id="formNameLabel">Name: </label>
-        <input
-          type="text"
-          placeholder="name"
-          name="book-name"
-          class="book-form__input"
-          id="formName"
-        />
+        <input type="text" name="book-name" class="book-form__input" id="formName" />
         <label for="book-author" class="book-form__label" id="formAuthorLabel"
           >Author:
         </label>
-        <input
-          type="text"
-          placeholder="author"
-          name="book-author"
-          class="book-form__input"
-          id="formAuthor"
-        />
+        <input type="text" name="book-author" class="book-form__input" id="formAuthor" />
         <label for="book-pages" class="book-form__label" id="formNumOfPagesLabel"
           >No. of Pages:
         </label>
@@ -63,10 +57,12 @@
           class="book-form__input"
           id="formHasRead"
         />
-        <button class="btn" id="btnFormCancel">Cancel</button>
-        <button type="submit" form="formBook" class="btn" id="btnFormSubmit">
-          Add Book
-        </button>
+        <div class="book-form__buttons">
+          <button class="btn" id="btnFormCancel">Cancel</button>
+          <button type="submit" form="formBook" class="btn" id="btnFormSubmit">
+            Add Book
+          </button>
+        </div>
       </form>
     </main>
     <script src="script.js"></script>

@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   width: 90%;
   max-width: 1280px;
+  font-family: 'Work Sans', sans-serif;
 }
 
 img {
@@ -33,12 +34,12 @@ header {
 .btn {
   padding: 0.75em 1em;
   border: none;
-  border-radius: 0.125em;
+  border-radius: 0.5em;
   transition: all 0.2s ease-out;
 }
 
 .btn:hover {
-  filter: brightness(120%);
+  filter: brightness(105%);
 }
 
 .row {
@@ -61,7 +62,7 @@ header {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  background-color: #cfcfcf;
+  border: 2px solid #333;
   padding: 1rem;
   margin: 0 auto;
   max-width: 250px;
@@ -81,8 +82,17 @@ header {
 
 .book__buttons button {
   font-size: 1.5rem;
+  position: relative;
   background: none;
   padding: 0;
+}
+
+.book__buttons button.hover::before {
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  top: -15px;
+  white-space: nowrap;
 }
 
 .book__buttons button:hover {
@@ -90,14 +100,33 @@ header {
   transform: scale(1.1);
 }
 
+.book__remove.hover::before {
+  content: 'Delete book';
+}
+
+.book__has-been-read.hover::before {
+  content: 'Completed?';
+  right: 0;
+}
+
 .book-form {
   position: absolute;
-  inset: 25%;
+  inset: auto 0 0;
   display: flex;
   flex-direction: column;
-  min-width: 30rem;
-  background: palegoldenrod;
+  max-width: 550px;
+  background: white;
+  border: 2px solid black;
+  border-color: black black #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin: auto 1rem;
   padding: 2em;
+}
+
+@media screen and (min-width: 550px) {
+  .book-form {
+    margin: auto;
+  }
 }
 
 .book-form--hidden {
@@ -108,7 +137,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 0.125rem;
 }
 
 .book-form__label::after {
@@ -120,5 +149,14 @@ header {
 .book-form__input {
   min-height: 2rem;
   margin-bottom: 2rem;
+}
+
+.book-form__buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.book-form__buttons button {
+  flex: 1;
 }
 /*# sourceMappingURL=styles.css.map */

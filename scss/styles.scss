@@ -12,6 +12,7 @@ body {
   min-height: 100vh;
   width: 90%;
   max-width: 1280px;
+  font-family: 'Work Sans', sans-serif;
 }
 
 img {
@@ -33,10 +34,10 @@ header {
 .btn {
   padding: 0.75em 1em;
   border: none;
-  border-radius: 0.125em;
+  border-radius: 0.5em;
   transition: all 0.2s ease-out;
   &:hover {
-    filter: brightness(120%);
+    filter: brightness(105%);
   }
 }
 
@@ -60,7 +61,8 @@ header {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  background-color: rgb(207, 207, 207);
+  // background-color: rgb(207, 207, 207);
+  border: 2px solid #333;
   padding: 1rem;
   margin: 0 auto;
   max-width: 250px;
@@ -71,32 +73,57 @@ header {
     line-height: 1;
   }
 
-  &__author {
-  }
-
   &__buttons {
     display: flex;
     justify-content: space-between;
     margin-top: 1rem;
     button {
       font-size: 1.5rem;
+      position: relative;
       background: none;
       padding: 0;
+      &.hover::before {
+        display: block;
+        position: absolute;
+        font-size: 12px;
+        top: -15px;
+        white-space: nowrap;
+      }
       &:hover {
         color: #333;
         transform: scale(1.1);
       }
     }
   }
+
+  &__remove.hover {
+    &::before {
+      content: 'Delete book';
+    }
+  }
+
+  &__has-been-read.hover {
+    &::before {
+      content: 'Completed?';
+      right: 0;
+    }
+  }
 }
 
 .book-form {
   position: absolute;
-  inset: 25%;
+  inset: auto 0 0;
   display: flex;
   flex-direction: column;
-  min-width: 30rem;
-  background: palegoldenrod;
+  max-width: 550px;
+  @media screen and (min-width: 550px) {
+    margin: auto;
+  }
+  background: rgba(255, 255, 255, 1);
+  border: 2px solid black;
+  border-color: black black #fff;
+  border-radius: 0.5rem 0.5rem 0 0;
+  margin: auto 1rem;
   padding: 2em;
   &--hidden {
     display: none;
@@ -106,7 +133,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.125rem;
     &::after {
       content: attr(data-error);
       text-align: end;
@@ -117,5 +144,13 @@ header {
   &__input {
     min-height: 2rem;
     margin-bottom: 2rem;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      flex: 1;
+    }
   }
 }

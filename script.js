@@ -125,11 +125,11 @@ function displayBook(book) {
   bookCover.setAttribute('class', 'book__cover');
   bookCover.src = book.cover;
 
-  const bookRemove = document.createElement('button');
-  bookRemove.setAttribute('class', 'btn book__remove');
-  bookRemove.innerHTML = '<i class="fas fa-trash"></i>';
+  const btnBookRemove = document.createElement('button');
+  btnBookRemove.setAttribute('class', 'btn book__remove');
+  btnBookRemove.innerHTML = '<i class="fas fa-trash"></i>';
 
-  bookRemove.addEventListener('click', () => {
+  btnBookRemove.addEventListener('click', () => {
     book.delete(book);
   });
 
@@ -149,6 +149,13 @@ function displayBook(book) {
     book.updateReadStatusButton(book, btnBookHasBeenRead);
   });
 
+  const buttonList = [btnBookRemove, btnBookHasBeenRead];
+  buttonList.forEach((button) => {
+    // button.addEventListener(event, (e) => toggleLabelOnHover(e));
+    button.addEventListener('mouseenter', (e) => e.target.classList.add('hover'));
+    button.addEventListener('mouseleave', (e) => e.target.classList.remove('hover'));
+  });
+
   // gridBook.appendChild(bookId);
   gridBook.appendChild(bookName);
   gridBook.appendChild(bookAuthor);
@@ -157,7 +164,7 @@ function displayBook(book) {
   const bookButtons = document.createElement('div');
   bookButtons.setAttribute('class', 'book__buttons');
 
-  bookButtons.appendChild(bookRemove);
+  bookButtons.appendChild(btnBookRemove);
   bookButtons.appendChild(btnBookHasBeenRead);
   gridBook.appendChild(bookButtons);
 
